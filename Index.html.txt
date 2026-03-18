@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kernel Client — Премиум чит для Minecraft 1.21.4</title>
+  <meta name="description" content="Kernel Client: невидимая Killaura, 3D ESP с трассерами, стильный ClickGUI. Байпасы Grim/Vulcan. Купить навсегда — присоединяйся в Discord!"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Orbitron:wght@600;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #030303;
+      --card: rgba(15,15,15,0.65);
+      --accent: #ffffff;               /* neon white */
+      --accent-glow: rgba(255,255,255,0.85);
+      --accent-dark: #e0e0e0;
+      --text: #f8fff8;
+      --gray: #b0b0b0;
+      --purple: #5865f2;
+      --trans-white: rgba(255,255,255,0.12);
+      --trans-darker: rgba(10,10,10,0.75);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family: 'Manrope', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    header {
+      position: relative;
+      min-height: 100vh;
+      background: radial-gradient(circle at 50% 15%, rgba(255,255,255,0.06), transparent 70%), #000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 5%;
+    }
+    .logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 7.5rem;
+      font-weight: 900;
+      color: var(--accent);
+      text-shadow: 0 0 50px var(--accent-glow), 0 0 100px rgba(255,255,255,0.3);
+      letter-spacing: 6px;
+      margin-bottom: 0.3em;
+    }
+    .subtitle {
+      font-size: 2.6rem;
+      font-weight: 600;
+      opacity: 0.92;
+      margin-bottom: 1rem;
+    }
+    .version {
+      font-size: 1.6rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 4rem;
+      letter-spacing: 1px;
+    }
+    .header-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.8rem;
+    }
+    .btn {
+      display: inline-block;
+      font-size: 1.4rem;
+      font-weight: 700;
+      padding: 1.2rem 3.8rem;
+      border-radius: 60px;
+      text-decoration: none;
+      transition: all 0.35s ease;
+      box-shadow: 0 12px 35px rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+    }
+    .btn-primary {
+      background: rgba(255,255,255,0.92);
+      color: #000;
+      border: 1px solid rgba(255,255,255,0.4);
+    }
+    .btn-primary:hover {
+      background: white;
+      color: #000;
+      transform: translateY(-6px);
+      box-shadow: 0 25px 60px rgba(255,255,255,0.45);
+      text-shadow: 0 0 15px rgba(0,0,0,0.3);
+    }
+    .btn-discord {
+      background: linear-gradient(135deg, var(--purple), #4752c4);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+    .btn-discord:hover {
+      background: linear-gradient(135deg, #4752c4, #3a45a0);
+      transform: translateY(-6px);
+      box-shadow: 0 25px 60px rgba(88,101,242,0.55);
+    }
+    .btn-outline {
+      background: var(--trans-white);
+      border: 2px solid rgba(255,255,255,0.35);
+      color: white;
+      backdrop-filter: blur(6px);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.18);
+      border-color: white;
+      transform: translateY(-4px);
+      box-shadow: 0 15px 40px rgba(255,255,255,0.25);
+    }
+    section {
+      padding: 10rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+      background: var(--trans-darker);
+      border-radius: 24px;
+      margin-bottom: 4rem;
+    }
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 5rem;
+      text-shadow: 0 0 35px var(--accent-glow);
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2.5rem;
+    }
+    .feature {
+      background: var(--card);
+      padding: 3rem 2rem;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: all 0.4s ease;
+      text-align: center;
+      backdrop-filter: blur(8px);
+    }
+    .feature:hover {
+      transform: translateY(-12px);
+      border-color: rgba(255,255,255,0.4);
+      box-shadow: 0 30px 70px rgba(255,255,255,0.15);
+    }
+    .feature h3 {
+      font-size: 1.9rem;
+      color: var(--accent);
+      margin-bottom: 1.2rem;
+      text-shadow: 0 0 12px rgba(255,255,255,0.5);
+    }
+    .feature p {
+      color: var(--gray);
+      font-size: 1.1rem;
+    }
+    .pricing {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 3.5rem;
+    }
+    .price-card {
+      background: var(--card);
+      border: 2px solid rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 3.5rem 2.5rem;
+      width: 380px;
+      text-align: center;
+      transition: all 0.4s ease;
+      backdrop-filter: blur(10px);
+    }
+    .price-card.recommended {
+      border-color: rgba(255,255,255,0.5);
+      box-shadow: 0 0 40px rgba(255,255,255,0.25);
+      transform: scale(1.06);
+    }
+    .price-card:hover {
+      transform: scale(1.05);
+      border-color: white;
+      box-shadow: 0 0 50px rgba(255,255,255,0.3);
+    }
+    .recommended-tag {
+      position: absolute;
+      top: -18px; left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
+      color: #000;
+      font-weight: 800;
+      padding: 0.5rem 1.5rem;
+      border-radius: 30px;
+      font-size: 1rem;
+    }
+    .price-card h3 { font-size: 2.4rem; color: var(--accent); margin-bottom: 1.2rem; }
+    .price { font-size: 4.5rem; font-weight: 900; color: white; margin: 1rem 0; }
+    .price small { font-size: 1.5rem; opacity: 0.8; }
+    .warning {
+      max-width: 1000px;
+      margin: 5rem auto;
+      padding: 2.5rem;
+      background: rgba(220,53,69,0.08);
+      border: 1px solid rgba(220,53,69,0.4);
+      border-radius: 20px;
+      text-align: center;
+      font-size: 1.25rem;
+      color: #ffdddd;
+      backdrop-filter: blur(6px);
+    }
+    footer {
+      background: rgba(0,0,0,0.85);
+      padding: 5rem 5%;
+      text-align: center;
+      color: var(--gray);
+      font-size: 1.1rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .social-links a {
+      color: rgba(255,255,255,0.8);
+      margin: 0 2rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .social-links a:hover { color: white; text-shadow: 0 0 10px white; }
+    .discord-link { color: var(--purple); font-weight: bold; }
+    @media (max-width: 900px) {
+      .logo { font-size: 5.5rem; }
+      .subtitle { font-size: 2rem; }
+      section { padding: 7rem 4%; }
+      .price-card { width: 100%; max-width: 420px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">KERNEL</div>
+    <div class="subtitle">Премиум Fabric чит — undetected & powerful</div>
+    <div class="version">1.21.4 • Байпасы 2026 • ReallyWorld / HolyWorld / AresMine</div>
+    
+    <div class="header-buttons">
+      <a href="https://t.me/yourtelegram" class="btn btn-primary" target="_blank">Купить навсегда — 499 ₽</a>
+      <a href="https://discord.gg/fSMfzxgz" class="btn btn-discord" target="_blank">Discord — поддержка & beta</a>
+      <a href="#pricing" class="btn btn-outline">Тарифы</a>
+    </div>
+  </header>
+
+  <section id="features">
+    <h2>Ключевые возможности</h2>
+    <div class="features-grid">
+      <div class="feature">
+        <h3>💀 Killaura / Combat Aura</h3>
+        <p>Легит + rage режимы, FOV, range, CPS limiter, rotations bypass Grim/Vulcan/NCP. Silent aim.</p>
+      </div>
+      <div class="feature">
+        <h3>👁️ 3D ESP + Tracers</h3>
+        <p>Красивые боксы, линии, nametags, здоровье, скелетоны. Цвета по командам/друзьям/мобам.</p>
+      </div>
+      <div class="feature">
+        <h3>🖥️ ClickGUI & HUD Editor</h3>
+        <p>Right Shift — современный интерфейс, drag-and-drop, темы, профили, поиск модулей.</p>
+      </div>
+      <div class="feature">
+        <h3>⚡ Movement & Utility</h3>
+        <p>Speed, Fly, Jesus, NoFall, SafeWalk, Scaffold, AutoTotem, AutoArmor, Velocity bypass.</p>
+      </div>
+      <div class="feature">
+        <h3>🔧 Дополнительно 70+</h3>
+        <p>XRay, Fullbright, AutoMine, KillAura Legit, AntiKnock, Tracers, Nametags, Radar и многое другое.</p>
+      </div>
+      <div class="feature">
+        <h3>🔒 Undetected & Updates</h3>
+        <p>Lifetime обновления, приватные обходы, поддержка в Discord. Работает на топовых анархиях.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <h2>Тарифы</h2>
+    <div class="pricing">
+      <div class="price-card">
+        <h3>БАЗА</h3>
+        <div class="price">299 ₽ <small>/ навсегда</small></div>
+        <p>Основные читы<br>Killaura + ESP<br>Обновления 1 месяц</p>
+        <a href="https://t.me/yourtelegram?start=basic" class="btn btn-primary" style="margin-top:2.5rem;">Купить</a>
+      </div>
+      <div class="price-card recommended">
+        <div class="recommended-tag">Рекомендуем</div>
+        <h3>ПРО</h3>
+        <div class="price">499 ₽ <small>/ навсегда</small></div>
+        <p>Все модули + байпасы<br>Приоритет обновления<br>Конфиги + поддержка 24/7</p>
+        <a href="https://discord.gg/fSMfzxgz" class="btn btn-discord" style="margin-top:2.5rem;">Купить в Discord</a>
+      </div>
+      <div class="price-card">
+        <h3>ЭЛИТА</h3>
+        <div class="price">999 ₽ <small>/ навсегда</small></div>
+        <p>Приватные обходы<br>Ранний доступ к бетам<br>Lifetime + VIP поддержка</p>
+        <a href="https://t.me/yourtelegram?start=elite" class="btn btn-primary" style="margin-top:2.5rem;">Купить</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="warning">
+    <strong>⚠️ Внимание:</strong> Читы работают только на анархиях и серверах без мощного античита. На серверах с Grim/Vulcan/NCP возможен бан. Используй на свой страх и риск — мы не отвечаем за аккаунты.
+  </div>
+
+  <footer>
+    <p>© 2026 Kernel Client. Не связано с Mojang/Microsoft.</p>
+    <div class="social-links">
+      <a href="https://t.me/kernelclient" target="_blank">Telegram</a> •
+      <a href="https://discord.gg/fSMfzxgz" target="_blank" class="discord-link">Discord (Gd здесь)</a> •
+      <a href="https://funpay.com/users/yourid" target="_blank">FunPay</a>
+    </div>
+    <p style="margin-top:2rem;">Вопросы / покупка / beta: заходи в <a href="https://discord.gg/fSMfzxgz" class="discord-link" target="_blank">Discord</a></p>
+  </footer>
+
+</body>
+</html>
